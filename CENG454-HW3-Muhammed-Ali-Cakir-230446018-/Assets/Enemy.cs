@@ -14,13 +14,14 @@ public class Enemy : MonoBehaviour
 
     void OnEnable()
     {
-        if (_strategy == null) SetStrategy(new AggressiveMove());
-        
-        if (_agent != null && target != null)
-        {
-            _agent.enabled = true;
-            _agent.SetDestination(target.position);
-        }
+        SetStrategy(new AggressiveMove()); 
+
+        CoreHealth.OnCoreDamaged += ReactToCoreDamage;
+    }
+
+    void OnDisable()
+    {
+        CoreHealth.OnCoreDamaged -= ReactToCoreDamage;
     }
 
     public void SetStrategy(IMovementStrategy strategy)
@@ -28,11 +29,27 @@ public class Enemy : MonoBehaviour
         _strategy = strategy;
     }
 
-    void Update()
+    private void ReactToCoreDamage(int currentHealth)
     {
-        if (_strategy != null && target != null && _agent.isOnNavMesh)
+
+    }
+
+    public void Die()
+    {
+        gameObject.SetActive(false);
+    }
+
+void Update()
+{
+    if (_strategy != null && target != null && _agent != null)
+    {
+        if (_agent.isOnNavMesh) 
         {
             _strategy.Move(_agent, target);
         }
+        else
+        {
+            Debug.LogWarning(gameObject.name + "Ariza!!!");
+        }
     }
-}
+}}

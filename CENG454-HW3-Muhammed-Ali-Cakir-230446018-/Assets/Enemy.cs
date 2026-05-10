@@ -31,7 +31,19 @@ public class Enemy : MonoBehaviour
 
     private void ReactToCoreDamage(int currentHealth)
     {
+        Renderer rend = GetComponentInChildren<Renderer>();
+        if (rend != null)
+        {
+            float healthRatio = (float)currentHealth / 100f;
+            Color rageColor = Color.Lerp(Color.red, Color.white, healthRatio);
 
+            rend.material.SetColor("_BaseColor", rageColor);
+            
+            rend.material.color = rageColor;
+        Debug.Log("Zombi Kızarıyor: " + rageColor);}
+        
+
+        if (_agent != null) _agent.speed += 0.2f;
     }
 
     public void Die()

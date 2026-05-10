@@ -8,7 +8,6 @@ public class EnemyAttack : MonoBehaviour
 
     void Start()
     {
-        // Enemy scriptindeki hedefi al
         _target = GetComponent<Enemy>().target;
     }
 
@@ -20,7 +19,7 @@ public class EnemyAttack : MonoBehaviour
             if (damageable != null)
             {
                 damageable.TakeDamage(damageAmount);
-                GetComponent<Enemy>().Die(); // Vurduktan sonra havuza dön
+                GetComponent<Enemy>().Die();
             }
         }
     }

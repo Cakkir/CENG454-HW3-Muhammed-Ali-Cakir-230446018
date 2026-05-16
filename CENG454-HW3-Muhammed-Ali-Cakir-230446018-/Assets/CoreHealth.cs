@@ -1,69 +1,86 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 using System;
+using UnityEngine.InputSystem;
 
 public class CoreHealth : MonoBehaviour, IDamageable
 {
     public static event Action<int> OnCoreDamaged;
 
-    public int health = 100;
-    public GameObject shieldVisual;
+public int health = 100;
 
-    private IDamageable _currentDamageHandler;
+
+    public GameObject shieldvisual;
+
+    private IDamageable currentdamagehandler;
+    private IDamageable realdamageable;
+
+    private class RealDamageReceiver : IDamageable
+    {
+        private CoreHealth _core;
+        public RealDamageReceiver(CoreHealth core) => _core = core;
+        
+        public void TakeDamage(int amount)
+        {
+            _core.ApplyActualDamage(amount);
+        }
+    }
 
     void Awake()
     {
-        _currentDamageHandler = this;
+        realdamageable = new RealDamageReceiver(this);
 
-        if (shieldVisual != null)
+
+        currentdamagehandler = realdamageable;
+
+        if (shieldvisual != null)
+
         {
-            shieldVisual.SetActive(false);
+            shieldvisual.SetActive(false);
         }
+
     }
 
     void Update()
     {
-        if (Keyboard.current.kKey.wasPressedThisFrame)
+
+        if (Keyboard.current != null && Keyboard.current.kKey.wasPressedThisFrame)// K tuşu Kalkan
         {
             ActivateShield(0.5f);
         }
 
-        if (Keyboard.current.rKey.wasPressedThisFrame)
-        {
-            OnCoreDamaged?.Invoke(health);
-        }
     }
 
-    public void ActivateShield(float reductionPercent)
+    public void ActivateShield(float reductionpercent)
     {
-        _currentDamageHandler = new ArmorDecorator(this, reductionPercent);
+       
+        currentdamagehandler = new Armor(realdamageable, reductionpercent);
         
-        if (shieldVisual != null)
+        if (shieldvisual != null)
         {
-            shieldVisual.SetActive(true);
+            shieldvisual.SetActive(true);
         }
+
     }
 
     public void TakeDamage(int amount)
     {
-        if (ReferenceEquals(_currentDamageHandler, this))
-        {
-            ApplyActualDamage(amount);
-        }
-        else
-        {
-            _currentDamageHandler.TakeDamage(amount);
-        }
+        currentdamagehandler.TakeDamage(amount);
     }
 
     public void ApplyActualDamage(int amount)
     {
+
         health -= amount;
+        Debug.Log($"Çekirdek Hasar aldı Kalan Can: {health}");
+
         OnCoreDamaged?.Invoke(health);
+
+
 
         if (health <= 0)
         {
-            Debug.Log("Core Destroyed!");
+            Debug.Log("Core Destroyed");
         }
+
     }
 }

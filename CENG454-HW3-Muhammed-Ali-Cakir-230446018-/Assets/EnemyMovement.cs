@@ -4,6 +4,7 @@ using UnityEngine.AI;
 public class EnemyMovement : MonoBehaviour
 {
     private NavMeshAgent _agent;
+
     private IMovementStrategy _strategy;
 
     void Awake()
@@ -12,15 +13,15 @@ public class EnemyMovement : MonoBehaviour
     }
 
     public void SetStrategy(IMovementStrategy strategy)
-    {
-        _strategy = strategy;
-    }
+    {_strategy = strategy;}
 
-    void Update()
-    {
+
+    void Update(){
+    
         if (_strategy != null && _agent.isOnNavMesh)
         {
             _strategy.Move(_agent, transform);
         }
+
     }
 }

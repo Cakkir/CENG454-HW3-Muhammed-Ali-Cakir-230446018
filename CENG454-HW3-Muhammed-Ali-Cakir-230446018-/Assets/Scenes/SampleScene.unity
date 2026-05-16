@@ -4197,7 +4197,6 @@ GameObject:
   - component: {fileID: 330585545}
   - component: {fileID: 330585544}
   - component: {fileID: 330585547}
-  - component: {fileID: 330585548}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -4323,18 +4322,6 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
---- !u!114 &330585548
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 330585543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c103a094e49d20c40b1b3e9e9ccdf35d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerAttack
 --- !u!1001 &335480133
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4443,8 +4430,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
   pool: {fileID: 1622383880}
-  spawnPoint: {fileID: 345164491}
-  spawnInterval: 2
+  spawnpoint: {fileID: 0}
+  spawninterval: 2
 --- !u!4 &345164491
 Transform:
   m_ObjectHideFlags: 0
@@ -13524,7 +13511,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CoreHealth
   health: 100
-  shieldVisual: {fileID: 175945303}
+  shieldvisual: {fileID: 175945303}
 --- !u!1001 &1137275882
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17011,8 +16998,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d97b525c37dfc3a4da362d05102b720a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAttack
-  damageAmount: 10
-  attackRange: 3
+  damageamount: 10
+  attackrange: 1.2
 --- !u!136 &1474676375
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -18901,7 +18888,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyPool
   enemyPrefab: {fileID: 1474676366}
-  poolSize: 20
+  poolsize: 10
 --- !u!4 &1622383881
 Transform:
   m_ObjectHideFlags: 0

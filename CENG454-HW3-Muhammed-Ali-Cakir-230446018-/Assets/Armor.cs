@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Armor:  IDamageable
+public class Armor:  IDamageable // Decorator design
 {
     private readonly IDamageable decorateddamageable;
     private readonly float damagereduction;
